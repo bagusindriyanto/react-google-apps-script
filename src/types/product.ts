@@ -1,8 +1,1 @@
-export type Product = {
-  id: string;
-  name: string;
-};
-
-export type ProductInput = {
-  name: string;
-};
+export type { Product, ProductInput } from '../../shared/contracts';

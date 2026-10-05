@@ -13,6 +13,7 @@ dist-ssr
 *.local
 
 .clasp.json
+.clasprc.json
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

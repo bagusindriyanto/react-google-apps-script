@@ -1,7 +1,7 @@
 {
   "scriptId": "GOOGLE_APPS_SCRIPT_PROJECT_ID",
   "rootDir": "dist",
-  "scriptExtensions": [".js", ".gs"],
+  "scriptExtensions": [".gs"],
   "htmlExtensions": [".html"],
   "jsonExtensions": [".json"],
   "filePushOrder": [],

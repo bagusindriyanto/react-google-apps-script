@@ -3,9 +3,21 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "typecheck": "node scripts/build-server.mjs --check && tsc -b",
+    "typecheck:watch": "tsc -b --watch",
+    "build:client": "vite build",
+    "build:server": "node scripts/build-server.mjs",
+    "build": "pnpm run typecheck && pnpm run build:client && pnpm run build:server",
+    "push": "pnpm run build && clasp push",
+    "gas:login": "clasp login",
+    "gas:status": "clasp show-file-status",
+    "gas:open": "clasp open-script",
+    "test": "node --test scripts/*.test.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -18,8 +30,10 @@
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@eslint/js": "^10.0.1",
+    "@google/clasp": "^3.4.1",
     "@rolldown/plugin-babel": "^0.2.3",
     "@types/babel__core": "^7.20.5",
+    "@types/google-apps-script": "^2.0.13",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
