@@ -14,18 +14,29 @@ export function runGas<K extends keyof GasFunctions>(
   ...args: Parameters<GasFunctions[K]>
 ): Promise<Awaited<ReturnType<GasFunctions[K]>>> {
   return new Promise((resolve, reject) => {
-    const bridge = typeof google === 'undefined' ? undefined : google?.script?.run;
+    const bridge =
+      typeof google === 'undefined' ? undefined : google?.script?.run;
 
     if (!bridge) {
       if (import.meta.env.DEV) {
         import('./gas.mock')
           .then(({ gasMock }) => {
-            const method = gasMock[name] as GasFunctions[K];
-            resolve(method.apply(gasMock, args) as Awaited<ReturnType<GasFunctions[K]>>);
+            const method = gasMock[name] as (
+              ...args: Parameters<GasFunctions[K]>
+            ) => ReturnType<GasFunctions[K]>;
+            resolve(
+              method.apply(gasMock, args) as Awaited<
+                ReturnType<GasFunctions[K]>
+              >,
+            );
           })
           .catch(reject);
       } else {
-        reject(new Error('google.script.run tidak tersedia. Buka aplikasi melalui web app Google Apps Script.'));
+        reject(
+          new Error(
+            'google.script.run tidak tersedia. Buka aplikasi melalui web app Google Apps Script.',
+          ),
+        );
       }
       return;
     }
